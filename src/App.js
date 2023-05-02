@@ -10,6 +10,7 @@ import Diary from './pages/Diary';
 
 const reducer = (state, action) => {
   let newState = [];
+
   switch (action.type) {
     case 'INIT': {
       return action.data;
@@ -38,8 +39,47 @@ const reducer = (state, action) => {
 export const DiaryStateContext = React.createContext();
 export const DiaryDispatchContext = React.createContext();
 
+const dummyData = [
+  {
+    id: 1,
+    emotion: 1,
+    content: '오늘의 일기 1번',
+    date: 1683006474085,
+  },
+  {
+    id: 2,
+    emotion: 2,
+    content: '오늘의 일기 2번',
+    date: 1683006474086,
+  },
+  {
+    id: 3,
+    emotion: 3,
+    content: '오늘의 일기 3번',
+    date: 1683006474087,
+  },
+  {
+    id: 4,
+    emotion: 4,
+    content: '오늘의 일기 4번',
+    date: 1683006474088,
+  },
+  {
+    id: 5,
+    emotion: 5,
+    content: '오늘의 일기 5번',
+    date: 1683006474089,
+  },
+  {
+    id: 6,
+    emotion: 6,
+    content: '오늘의 일기 6번',
+    date: 1783006474089,
+  },
+];
+
 function App() {
-  const [data, dispatch] = useReducer(reducer, []);
+  const [data, dispatch] = useReducer(reducer, dummyData);
 
   const dataId = useRef(0);
 
@@ -61,6 +101,7 @@ function App() {
   const onRemove = (targetId) => {
     dispatch({ type: 'REMOVE', targetId });
   };
+
   // EDIT
   const onEdit = (targetId, date, content, emotion) => {
     dispatch({
