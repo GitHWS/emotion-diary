@@ -1,7 +1,7 @@
 import React, { useReducer, useRef } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Home from './pages/Home';
 import New from './pages/New';
@@ -81,7 +81,7 @@ const dummyData = [
 function App() {
   const [data, dispatch] = useReducer(reducer, dummyData);
 
-  const dataId = useRef(0);
+  const dataId = useRef(6);
 
   // CREATE
   const onCreate = (date, content, emotion) => {
