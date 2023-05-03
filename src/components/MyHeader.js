@@ -1,5 +1,3 @@
-import React from 'react';
-
 const MyHeader = ({ headText, leftChild, rightChild }) => {
   return (
     <header>

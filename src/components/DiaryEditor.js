@@ -10,12 +10,11 @@ import MyButton from './MyButton';
 import EmotionItem from './EmotionItem';
 
 const DiaryEditor = ({ isEdit, originData }) => {
-  const contentRef = useRef();
   const [content, setContent] = useState('');
   const [emotion, setEmotion] = useState(3);
   const [date, setDate] = useState(getStringDate(new Date()));
-
   const { onCreate, onEdit, onRemove } = useContext(DiaryDispatchContext);
+  const contentRef = useRef();
 
   const navigate = useNavigate();
 

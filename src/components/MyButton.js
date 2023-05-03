@@ -1,5 +1,3 @@
-import React from 'react';
-
 const MyButton = ({ text, type = 'default', onClick }) => {
   const btnType = ['positive', 'negative'].includes(type) ? type : 'default';
 

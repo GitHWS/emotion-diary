@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { DiaryStateContext } from '../App';
 
@@ -7,10 +7,9 @@ import MyButton from '../components/MyButton';
 import DiaryList from '../components/DiaryList';
 
 const Home = () => {
-  const diaryList = useContext(DiaryStateContext);
-
   const [data, setData] = useState([]);
   const [curDate, setCurDate] = useState(new Date());
+  const diaryList = useContext(DiaryStateContext);
 
   const headText = `${curDate.getFullYear()}년 ${curDate.getMonth() + 1}월`;
 
