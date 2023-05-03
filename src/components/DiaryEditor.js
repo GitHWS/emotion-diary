@@ -9,9 +9,6 @@ import MyHeader from './MyHeader';
 import MyButton from './MyButton';
 import EmotionItem from './EmotionItem';
 
-const env = process.env;
-env.PUBLIC_URL = env.PUBLIC_URL || '';
-
 const DiaryEditor = ({ isEdit, originData }) => {
   const contentRef = useRef();
   const [content, setContent] = useState('');
