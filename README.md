@@ -16,9 +16,16 @@
 🔥 내가 작성한 일기를 삭제할 수 있습니다.
 ```
 
+## 목차
+1. [프로젝트 진행 동기](https://github.com/GitHWS/emotion-diary/edit/main/README.md#1-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%8F%99%EA%B8%B0)
+2. [프로젝트 플로우 차트](https://github.com/GitHWS/emotion-diary/edit/main/README.md#2-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%ED%94%8C%EB%A1%9C%EC%9A%B0-%EC%B0%A8%ED%8A%B8)
+3. [기술 및 개발환경](https://github.com/GitHWS/emotion-diary/edit/main/README.md#3-%EA%B8%B0%EC%88%A0-%EB%B0%8F-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD)
+4. [구현 기능](https://github.com/GitHWS/emotion-diary/edit/main/README.md#4-%EA%B5%AC%ED%98%84-%EA%B8%B0%EB%8A%A5)
+5. [구현 동작](https://github.com/GitHWS/emotion-diary/edit/main/README.md#5-%EA%B5%AC%ED%98%84-%EB%8F%99%EC%9E%91)
+
 <br/>
 
-## 1. 프로젝트 동기
+## 1. 프로젝트 진행 동기
 
 첫 React 프로젝트로, React의 기본 CRUD 기능을 구현해보기 위한 프로젝트입니다.
 
