@@ -15,12 +15,21 @@ const DiaryEditor = ({ isEdit, originData }) => {
   const [emotion, setEmotion] = useState(3);
   const [date, setDate] = useState(getStringDate(new Date()));
 
-  const { onCreate, onEdit } = useContext(DiaryDispatchContext);
+  const { onCreate, onEdit, onRemove } = useContext(DiaryDispatchContext);
 
   const navigate = useNavigate();
 
   const handleClickEmote = (emotion) => {
     setEmotion(emotion);
+  };
+
+  const handleRemove = () => {
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      onRemove(originData.id);
+      navigate('/', { replace: true });
+    } else {
+      return;
+    }
   };
 
   const handleSubmit = () => {
@@ -56,6 +65,11 @@ const DiaryEditor = ({ isEdit, originData }) => {
       <MyHeader
         headText={isEdit ? '일기 수정하기' : '새 일기쓰기'}
         leftChild={<MyButton text="< 뒤로가기" onClick={() => navigate(-1)} />}
+        rightChild={
+          isEdit && (
+            <MyButton text="삭제하기" type="negative" onClick={handleRemove} />
+          )
+        }
       />
       <div>
         <section>
@@ -96,7 +110,11 @@ const DiaryEditor = ({ isEdit, originData }) => {
         <section>
           <div className="control_box">
             <MyButton text="취소하기" onClick={() => navigate(-1)} />
-            <MyButton text="작성 완료" type="positive" onClick={handleSubmit} />
+            <MyButton
+              text={isEdit ? '수정 완료' : '작성 완료'}
+              type="positive"
+              onClick={handleSubmit}
+            />
           </div>
         </section>
       </div>
