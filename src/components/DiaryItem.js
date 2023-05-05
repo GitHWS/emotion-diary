@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { emotionList } from '../util/emotion';
 
 import MyButton from './MyButton';
 
@@ -27,7 +28,12 @@ const DiaryItem = React.memo(({ id, content, emotion, date }) => {
           `emotion_img_wrapper_${emotion}`,
         ].join(' ')}
         onClick={goDetail}>
-        <img src={process.env.PUBLIC_URL + `assets/emotion${emotion}.png`} />
+        <img
+          src={process.env.PUBLIC_URL + `assets/emotion${emotion}.png`}
+          alt={`기분이 ${
+            emotionList.find((it) => it.emotion_id === emotion).emotion_descript
+          }`}
+        />
       </div>
       <div className="info_wrapper" onClick={goDetail}>
         <div className="diary_date">{strDate}</div>

@@ -13,7 +13,7 @@ const Edit = () => {
   useEffect(() => {
     let titleElement = document.getElementsByTagName('title')[0];
     titleElement.innerHTML = `감정 일기장 - ${id}번 일기 수정`;
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     if (diaryList.length >= 1) {
@@ -28,7 +28,7 @@ const Edit = () => {
         navigate('/', { replace: true });
       }
     }
-  }, [id, diaryList]);
+  }, [id, navigate, diaryList]);
 
   return (
     <div>
