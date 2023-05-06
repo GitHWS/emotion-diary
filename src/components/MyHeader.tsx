@@ -1,4 +1,10 @@
-const MyHeader = ({ headText, leftChild, rightChild }) => {
+interface MyHeaderProps {
+  headText: string;
+  leftChild: JSX.Element;
+  rightChild: JSX.Element;
+}
+
+const MyHeader = ({ headText, leftChild, rightChild }: MyHeaderProps) => {
   return (
     <header>
       <div className="head_btn_left">{leftChild}</div>
