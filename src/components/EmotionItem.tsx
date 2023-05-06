@@ -1,7 +1,21 @@
 import React from 'react';
 
+interface EmotionItemProps {
+  emotion_id: number;
+  emotion_img: string;
+  emotion_descript: string;
+  onClick: (emotion: number) => void;
+  isSelected: boolean;
+}
+
 const EmotionItem = React.memo(
-  ({ emotion_id, emotion_img, emotion_descript, onClick, isSelected }) => {
+  ({
+    emotion_id,
+    emotion_img,
+    emotion_descript,
+    onClick,
+    isSelected,
+  }: EmotionItemProps) => {
     return (
       <div
         className={[
