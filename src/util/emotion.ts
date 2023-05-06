@@ -1,7 +1,15 @@
 const env = process.env;
 env.PUBLIC_URL = env.PUBLIC_URL || '';
 
-export const emotionList = [
+interface EmotionItem {
+  emotion_id: number;
+  emotion_img: string;
+  emotion_descript: string;
+}
+
+type EmotionList = EmotionItem[];
+
+export const emotionList: EmotionList = [
   {
     emotion_id: 1,
     emotion_img: process.env.PUBLIC_URL + `/assets/emotion1.png`,
