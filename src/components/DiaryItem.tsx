@@ -4,7 +4,7 @@ import { emotionList } from '../util/emotion';
 
 import MyButton from './MyButton';
 
-interface DiaryItemProps {
+export interface DiaryItemProps {
   id: number;
   content: string;
   emotion: number;
