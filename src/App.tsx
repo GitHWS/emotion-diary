@@ -8,7 +8,36 @@ import New from './pages/New';
 import Edit from './pages/Edit';
 import Diary from './pages/Diary';
 
-const reducer = (state, action) => {
+interface DiaryStateContextType {
+  id: number;
+  date: number;
+  content: string;
+  emotion: 1 | 2 | 3 | 4 | 5;
+}
+
+interface DiaryDispatchContextType {
+  onCreate: (date: string, content: string, emotion: 1 | 2 | 3 | 4 | 5) => void;
+  onRemove: (targetId: number) => void;
+  onEdit: (
+    targetId: number,
+    date: string,
+    content: string,
+    emotion: 1 | 2 | 3 | 4 | 5
+  ) => void;
+}
+
+const initialState: Array<DiaryStateContextType> = [];
+
+type ReducerActionType =
+  | { type: 'INIT'; data: Array<DiaryStateContextType> }
+  | { type: 'CREATE'; data: DiaryStateContextType }
+  | { type: 'REMOVE'; targetId: number }
+  | { type: 'EDIT'; data: DiaryStateContextType };
+
+const reducer = (
+  state: Array<DiaryStateContextType>,
+  action: ReducerActionType
+) => {
   let newState = [];
 
   switch (action.type) {
@@ -39,19 +68,35 @@ const reducer = (state, action) => {
   return newState;
 };
 
-export const DiaryStateContext = React.createContext();
-export const DiaryDispatchContext = React.createContext();
+export const DiaryStateContext =
+  React.createContext<Array<DiaryStateContextType> | null>(null);
+export const DiaryDispatchContext =
+  React.createContext<DiaryDispatchContextType>(null!);
 
 function App() {
-  const [data, dispatch] = useReducer(reducer, []);
-  const dataId = useRef(0);
+  // 무슨 에러일까.. 흠흠
+  const [data, dispatch] = useReducer(reducer, initialState);
+  const dataId = useRef<number>(0);
 
   useEffect(() => {
     const localData = localStorage.getItem('diary');
 
     if (localData) {
       const diaryList = JSON.parse(localData).sort(
-        (a, b) => parseInt(b.id) - parseInt(a.id)
+        (
+          a: {
+            id: string;
+            date: number;
+            content: string;
+            emotion: 1 | 2 | 3 | 4 | 5;
+          },
+          b: {
+            id: string;
+            date: number;
+            content: string;
+            emotion: 1 | 2 | 3 | 4 | 5;
+          }
+        ) => parseInt(b.id) - parseInt(a.id)
       );
 
       if (diaryList.length >= 1) {
@@ -62,7 +107,11 @@ function App() {
   }, []);
 
   // CREATE
-  const onCreate = (date, content, emotion) => {
+  const onCreate = (
+    date: string,
+    content: string,
+    emotion: 1 | 2 | 3 | 4 | 5
+  ) => {
     dispatch({
       type: 'CREATE',
       data: {
@@ -76,12 +125,17 @@ function App() {
   };
 
   // REMOVE
-  const onRemove = (targetId) => {
+  const onRemove = (targetId: number) => {
     dispatch({ type: 'REMOVE', targetId });
   };
 
   // EDIT
-  const onEdit = (targetId, date, content, emotion) => {
+  const onEdit = (
+    targetId: number,
+    date: string,
+    content: string,
+    emotion: 1 | 2 | 3 | 4 | 5
+  ) => {
     dispatch({
       type: 'EDIT',
       data: {
@@ -92,6 +146,7 @@ function App() {
       },
     });
   };
+
   return (
     <DiaryStateContext.Provider value={data}>
       <DiaryDispatchContext.Provider value={{ onCreate, onEdit, onRemove }}>
