@@ -1,10 +1,10 @@
 import React from 'react';
 
 interface EmotionItemProps {
-  emotion_id: number;
+  emotion_id: 1 | 2 | 3 | 4 | 5;
   emotion_img: string;
   emotion_descript: string;
-  onClick: (emotion: number) => void;
+  onClick: (emotion: 1 | 2 | 3 | 4 | 5) => void;
   isSelected: boolean;
 }
 
