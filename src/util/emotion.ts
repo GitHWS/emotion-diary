@@ -2,12 +2,12 @@ const env = process.env;
 env.PUBLIC_URL = env.PUBLIC_URL || '';
 
 interface EmotionItem {
-  emotion_id: number;
+  emotion_id: 1 | 2 | 3 | 4 | 5;
   emotion_img: string;
   emotion_descript: string;
 }
 
-type EmotionList = EmotionItem[];
+type EmotionList = Array<EmotionItem>;
 
 export const emotionList: EmotionList = [
   {
