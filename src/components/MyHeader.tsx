@@ -1,7 +1,7 @@
 interface MyHeaderProps {
   headText: string;
   leftChild: JSX.Element;
-  rightChild: false | JSX.Element;
+  rightChild?: false | JSX.Element;
 }
 
 const MyHeader = ({ headText, leftChild, rightChild }: MyHeaderProps) => {

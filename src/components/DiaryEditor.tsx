@@ -10,8 +10,8 @@ import MyButton from './MyButton';
 import EmotionItem from './EmotionItem';
 
 interface DiaryEditorProps {
-  isEdit: boolean;
-  originData: any;
+  isEdit?: boolean;
+  originData?: any;
 }
 
 const DiaryEditor = ({ isEdit, originData }: DiaryEditorProps) => {
