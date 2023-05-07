@@ -9,16 +9,21 @@ import MyHeader from './MyHeader';
 import MyButton from './MyButton';
 import EmotionItem from './EmotionItem';
 
-const DiaryEditor = ({ isEdit, originData }) => {
+interface DiaryEditorProps {
+  isEdit: boolean;
+  originData: any;
+}
+
+const DiaryEditor = ({ isEdit, originData }: DiaryEditorProps) => {
   const [content, setContent] = useState('');
-  const [emotion, setEmotion] = useState(3);
+  const [emotion, setEmotion] = useState<1 | 2 | 3 | 4 | 5>(3);
   const [date, setDate] = useState(getStringDate(new Date()));
   const { onCreate, onEdit, onRemove } = useContext(DiaryDispatchContext);
-  const contentRef = useRef();
+  const contentRef = useRef<HTMLTextAreaElement>(null);
 
   const navigate = useNavigate();
 
-  const handleClickEmote = useCallback((emotion) => {
+  const handleClickEmote = useCallback((emotion: 1 | 2 | 3 | 4 | 5) => {
     setEmotion(emotion);
   }, []);
 
@@ -33,7 +38,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
 
   const handleSubmit = () => {
     if (content.length < 1) {
-      contentRef.current.focus();
+      contentRef.current!.focus();
       return;
     }
 
