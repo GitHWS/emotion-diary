@@ -7,7 +7,7 @@ import MyButton from './MyButton';
 export interface DiaryItemProps {
   id: number;
   content: string;
-  emotion: number;
+  emotion: 1 | 2 | 3 | 4 | 5;
   date: string;
 }
 
