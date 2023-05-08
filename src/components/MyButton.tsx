@@ -1,4 +1,10 @@
-const MyButton = ({ text, type = 'default', onClick }) => {
+interface MyButtonProps {
+  text: string;
+  type?: 'default' | 'positive' | 'negative';
+  onClick: () => void;
+}
+
+const MyButton = ({ text, type = 'default', onClick }: MyButtonProps) => {
   const btnType = ['positive', 'negative'].includes(type) ? type : 'default';
 
   return (

@@ -4,15 +4,16 @@ import { DiaryStateContext } from '../App';
 
 import { getStringDate } from '../util/date';
 import { emotionList } from '../util/emotion';
+import { ProcessedDiaryDataType, EmotionDataType } from '../types/Types';
 
 import MyHeader from '../components/MyHeader';
 import MyButton from '../components/MyButton';
 
 const Diary = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { id } = useParams<string>();
 
-  const [data, setData] = useState();
+  const [data, setData] = useState<ProcessedDiaryDataType>();
   const diaryList = useContext(DiaryStateContext);
 
   useEffect(() => {
@@ -21,9 +22,9 @@ const Diary = () => {
   }, [id]);
 
   useEffect(() => {
-    if (diaryList.length >= 1) {
-      const targetDiary = diaryList.find(
-        (it) => parseInt(it.id) === parseInt(id)
+    if (diaryList!.length >= 1) {
+      const targetDiary = diaryList!.find(
+        (it: ProcessedDiaryDataType) => Number(it.id) === Number(id)
       );
 
       if (targetDiary) {
@@ -39,7 +40,7 @@ const Diary = () => {
     return <div className="DiaryPage">로딩중입니다...</div>;
   } else {
     const curEmotionData = emotionList.find(
-      (it) => parseInt(it.emotion_id) === parseInt(data.emotion)
+      (it: EmotionDataType) => it.emotion_id === data.emotion
     );
 
     return (
@@ -65,11 +66,11 @@ const Diary = () => {
                 `diary_img_wrapper_${data.emotion}`,
               ].join(' ')}>
               <img
-                src={curEmotionData.emotion_img}
-                alt={curEmotionData.emotion_descript}
+                src={curEmotionData!.emotion_img}
+                alt={curEmotionData!.emotion_descript}
               />
               <div className="emotion_descript">
-                {curEmotionData.emotion_descript}
+                {curEmotionData!.emotion_descript}
               </div>
             </div>
           </section>

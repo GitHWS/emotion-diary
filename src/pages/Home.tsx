@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
-
 import { DiaryStateContext } from '../App';
+
+import { ProcessedDiaryDataType, ProcessedDiaryListType } from '../types/Types';
 
 import MyHeader from '../components/MyHeader';
 import MyButton from '../components/MyButton';
 import DiaryList from '../components/DiaryList';
 
 const Home = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<ProcessedDiaryListType>([]);
   const [curDate, setCurDate] = useState(new Date());
   const diaryList = useContext(DiaryStateContext);
 
@@ -19,7 +20,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    if (diaryList.length >= 1) {
+    if (diaryList!.length >= 1) {
       const firstDay = new Date(
         curDate.getFullYear(),
         curDate.getMonth(),
@@ -36,7 +37,10 @@ const Home = () => {
       ).getTime();
 
       setData(
-        diaryList.filter((it) => firstDay <= it.date && it.date <= lastDay)
+        diaryList!.filter(
+          (it: ProcessedDiaryDataType) =>
+            firstDay <= it.date && it.date <= lastDay
+        )
       );
     }
   }, [diaryList, curDate]);

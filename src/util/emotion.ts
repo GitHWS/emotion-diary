@@ -1,7 +1,11 @@
+import { EmotionDataType } from '../types/Types';
+
+type EmotionDataListType = Array<EmotionDataType>;
+
 const env = process.env;
 env.PUBLIC_URL = env.PUBLIC_URL || '';
 
-export const emotionList = [
+export const emotionList: EmotionDataListType = [
   {
     emotion_id: 1,
     emotion_img: process.env.PUBLIC_URL + `/assets/emotion1.png`,

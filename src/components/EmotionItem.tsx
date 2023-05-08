@@ -1,7 +1,20 @@
 import React from 'react';
 
+import { EmotionIdType, EmotionDataType } from '../types/Types';
+
+interface EmotionItemProps extends EmotionDataType {
+  onClick: (emotion: EmotionIdType) => void;
+  isSelected: boolean;
+}
+
 const EmotionItem = React.memo(
-  ({ emotion_id, emotion_img, emotion_descript, onClick, isSelected }) => {
+  ({
+    emotion_id,
+    emotion_img,
+    emotion_descript,
+    onClick,
+    isSelected,
+  }: EmotionItemProps) => {
     return (
       <div
         className={[
