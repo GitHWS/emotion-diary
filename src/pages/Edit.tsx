@@ -1,18 +1,16 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DiaryStateContext } from '../App';
+
+import { ProcessedDiaryDataType } from '../types/Types';
+
 import DiaryEditor from '../components/DiaryEditor';
 
 const Edit = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const [originData, setOriginData] = useState<{
-    id: number;
-    date: number;
-    emotion: number;
-    content: string;
-  }>();
+  const [originData, setOriginData] = useState<ProcessedDiaryDataType>();
   const diaryList = useContext(DiaryStateContext);
 
   useEffect(() => {
