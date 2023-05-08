@@ -4,6 +4,7 @@ import { DiaryStateContext } from '../App';
 
 import { getStringDate } from '../util/date';
 import { emotionList } from '../util/emotion';
+import { ProcessedDiaryDataType, EmotionDataType } from '../types/Types';
 
 import MyHeader from '../components/MyHeader';
 import MyButton from '../components/MyButton';
@@ -12,12 +13,7 @@ const Diary = () => {
   const navigate = useNavigate();
   const { id } = useParams<string>();
 
-  const [data, setData] = useState<{
-    id: number;
-    content: string;
-    emotion: 1 | 2 | 3 | 4 | 5;
-    date: number;
-  }>();
+  const [data, setData] = useState<ProcessedDiaryDataType>();
   const diaryList = useContext(DiaryStateContext);
 
   useEffect(() => {
@@ -28,12 +24,7 @@ const Diary = () => {
   useEffect(() => {
     if (diaryList!.length >= 1) {
       const targetDiary = diaryList!.find(
-        (it: {
-          id: number;
-          content: string;
-          emotion: 1 | 2 | 3 | 4 | 5;
-          date: number;
-        }) => Number(it.id) === Number(id)
+        (it: ProcessedDiaryDataType) => Number(it.id) === Number(id)
       );
 
       if (targetDiary) {
@@ -49,11 +40,7 @@ const Diary = () => {
     return <div className="DiaryPage">로딩중입니다...</div>;
   } else {
     const curEmotionData = emotionList.find(
-      (it: {
-        emotion_id: number;
-        emotion_img: string;
-        emotion_descript: string;
-      }) => it.emotion_id === data.emotion
+      (it: EmotionDataType) => it.emotion_id === data.emotion
     );
 
     return (
