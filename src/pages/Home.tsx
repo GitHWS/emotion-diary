@@ -7,7 +7,14 @@ import MyButton from '../components/MyButton';
 import DiaryList from '../components/DiaryList';
 
 const Home = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<
+    Array<{
+      id: number;
+      content: string;
+      emotion: 1 | 2 | 3 | 4 | 5;
+      date: number;
+    }>
+  >([]);
   const [curDate, setCurDate] = useState(new Date());
   const diaryList = useContext(DiaryStateContext);
 
@@ -19,7 +26,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    if (diaryList.length >= 1) {
+    if (diaryList!.length >= 1) {
       const firstDay = new Date(
         curDate.getFullYear(),
         curDate.getMonth(),
@@ -36,7 +43,14 @@ const Home = () => {
       ).getTime();
 
       setData(
-        diaryList.filter((it) => firstDay <= it.date && it.date <= lastDay)
+        diaryList!.filter(
+          (it: {
+            id: number;
+            content: string;
+            emotion: 1 | 2 | 3 | 4 | 5;
+            date: number;
+          }) => firstDay <= it.date && it.date <= lastDay
+        )
       );
     }
   }, [diaryList, curDate]);
