@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
-
 import { DiaryStateContext } from '../App';
+
 import { ProcessedDiaryDataType, ProcessedDiaryListType } from '../types/Types';
 
 import MyHeader from '../components/MyHeader';
