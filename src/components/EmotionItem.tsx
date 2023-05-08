@@ -1,10 +1,9 @@
 import React from 'react';
 
-interface EmotionItemProps {
-  emotion_id: 1 | 2 | 3 | 4 | 5;
-  emotion_img: string;
-  emotion_descript: string;
-  onClick: (emotion: 1 | 2 | 3 | 4 | 5) => void;
+import { EmotionIdType, EmotionDataType } from '../types/Types';
+
+interface EmotionItemProps extends EmotionDataType {
+  onClick: (emotion: EmotionIdType) => void;
   isSelected: boolean;
 }
 
