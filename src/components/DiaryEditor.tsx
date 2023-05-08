@@ -1,9 +1,10 @@
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import { DiaryDispatchContext } from '../App';
+
 import { getStringDate } from '../util/date';
 import { emotionList } from '../util/emotion';
+import { EmotionIdType } from '../types/Types';
 
 import MyHeader from './MyHeader';
 import MyButton from './MyButton';
@@ -16,14 +17,15 @@ interface DiaryEditorProps {
 
 const DiaryEditor = ({ isEdit, originData }: DiaryEditorProps) => {
   const [content, setContent] = useState('');
-  const [emotion, setEmotion] = useState<1 | 2 | 3 | 4 | 5>(3);
+  const [emotion, setEmotion] = useState<EmotionIdType>(3);
   const [date, setDate] = useState(getStringDate(new Date()));
   const { onCreate, onEdit, onRemove } = useContext(DiaryDispatchContext);
+
   const contentRef = useRef<HTMLTextAreaElement>(null);
 
   const navigate = useNavigate();
 
-  const handleClickEmote = useCallback((emotion: 1 | 2 | 3 | 4 | 5) => {
+  const handleClickEmote = useCallback((emotion: EmotionIdType) => {
     setEmotion(emotion);
   }, []);
 
@@ -48,9 +50,9 @@ const DiaryEditor = ({ isEdit, originData }: DiaryEditorProps) => {
       )
     ) {
       if (!isEdit) {
-        onCreate(date, content, emotion);
+        onCreate(date, emotion, content);
       } else {
-        onEdit(originData.id, date, content, emotion);
+        onEdit(originData.id, date, emotion, content);
       }
     }
     navigate('/', { replace: true });
