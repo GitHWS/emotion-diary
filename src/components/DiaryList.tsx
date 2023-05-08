@@ -24,6 +24,15 @@ interface ControlMenuProps {
   optionList: OptionItem[];
 }
 
+interface DiaryListProps {
+  diaryList: Array<{
+    id: number;
+    content: string;
+    emotion: 1 | 2 | 3 | 4 | 5;
+    date: number;
+  }>;
+}
+
 const sortOptionList = [
   {
     value: 'latest',
@@ -58,7 +67,7 @@ const ControlMenu = React.memo(
   }
 );
 
-const DiaryList = ({ diaryList = [] }) => {
+const DiaryList = ({ diaryList = [] }: DiaryListProps) => {
   const navigate = useNavigate();
 
   const [sortType, setSortType] = useState('latest');
