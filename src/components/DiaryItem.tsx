@@ -1,18 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { emotionList } from '../util/emotion';
+import { OriginDiaryDataType } from '../types/Types';
 
 import MyButton from './MyButton';
 
-export interface DiaryItemProps {
-  id: number;
-  content: string;
-  emotion: 1 | 2 | 3 | 4 | 5;
-  date: string;
-}
-
 const DiaryItem = React.memo(
-  ({ id, content, emotion, date }: DiaryItemProps) => {
+  ({ id, content, emotion, date }: OriginDiaryDataType) => {
     const navigate = useNavigate();
 
     const env = process.env;
