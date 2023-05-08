@@ -2,42 +2,38 @@ import React, { useEffect, useReducer, useRef } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import './App.css';
+import {
+  EmotionIdType,
+  JSONDiaryDataType,
+  ProcessedDiaryDataType,
+  ProcessedDiaryListType,
+} from './types/Types';
 
 import Home from './pages/Home';
 import New from './pages/New';
 import Edit from './pages/Edit';
 import Diary from './pages/Diary';
 
-interface DiaryStateContextType {
-  id: number;
-  date: number;
-  content: string;
-  emotion: 1 | 2 | 3 | 4 | 5;
-}
-
 interface DiaryDispatchContextType {
-  onCreate: (date: string, content: string, emotion: 1 | 2 | 3 | 4 | 5) => void;
+  onCreate: (date: string, emotion: EmotionIdType, content: string) => void;
   onRemove: (targetId: number) => void;
   onEdit: (
     targetId: number,
     date: string,
-    content: string,
-    emotion: 1 | 2 | 3 | 4 | 5
+    emotion: EmotionIdType,
+    content: string
   ) => void;
 }
 
-const initialState: Array<DiaryStateContextType> = [];
+const initialState: ProcessedDiaryListType = [];
 
 type ReducerActionType =
-  | { type: 'INIT'; data: Array<DiaryStateContextType> }
-  | { type: 'CREATE'; data: DiaryStateContextType }
+  | { type: 'INIT'; data: ProcessedDiaryListType }
+  | { type: 'CREATE'; data: ProcessedDiaryDataType }
   | { type: 'REMOVE'; targetId: number }
-  | { type: 'EDIT'; data: DiaryStateContextType };
+  | { type: 'EDIT'; data: ProcessedDiaryDataType };
 
-const reducer = (
-  state: Array<DiaryStateContextType>,
-  action: ReducerActionType
-) => {
+const reducer = (state: ProcessedDiaryListType, action: ReducerActionType) => {
   let newState = [];
 
   switch (action.type) {
@@ -69,12 +65,11 @@ const reducer = (
 };
 
 export const DiaryStateContext =
-  React.createContext<Array<DiaryStateContextType> | null>(null);
+  React.createContext<Array<ProcessedDiaryDataType> | null>(null);
 export const DiaryDispatchContext =
   React.createContext<DiaryDispatchContextType>(null!);
 
 function App() {
-  // 무슨 에러일까.. 흠흠
   const [data, dispatch] = useReducer(reducer, initialState);
   const dataId = useRef<number>(0);
 
@@ -83,20 +78,8 @@ function App() {
 
     if (localData) {
       const diaryList = JSON.parse(localData).sort(
-        (
-          a: {
-            id: string;
-            date: number;
-            content: string;
-            emotion: 1 | 2 | 3 | 4 | 5;
-          },
-          b: {
-            id: string;
-            date: number;
-            content: string;
-            emotion: 1 | 2 | 3 | 4 | 5;
-          }
-        ) => parseInt(b.id) - parseInt(a.id)
+        (a: JSONDiaryDataType, b: JSONDiaryDataType) =>
+          parseInt(b.id) - parseInt(a.id)
       );
 
       if (diaryList.length >= 1) {
@@ -109,16 +92,16 @@ function App() {
   // CREATE
   const onCreate = (
     date: string,
-    content: string,
-    emotion: 1 | 2 | 3 | 4 | 5
+    emotion: 1 | 2 | 3 | 4 | 5,
+    content: string
   ) => {
     dispatch({
       type: 'CREATE',
       data: {
         id: dataId.current,
         date: new Date(date).getTime(),
-        content,
         emotion,
+        content,
       },
     });
     dataId.current += 1;
@@ -133,8 +116,8 @@ function App() {
   const onEdit = (
     targetId: number,
     date: string,
-    content: string,
-    emotion: 1 | 2 | 3 | 4 | 5
+    emotion: 1 | 2 | 3 | 4 | 5,
+    content: string
   ) => {
     dispatch({
       type: 'EDIT',
