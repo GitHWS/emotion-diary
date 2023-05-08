@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import MyButton from './MyButton';
-import DiaryItem, { DiaryItemProps } from './DiaryItem';
+import { OriginDiaryDataType, ProcessedDiaryListType } from '../types/Types';
 
+import MyButton from './MyButton';
+import DiaryItem from './DiaryItem';
+
+/** useState setter 함수 타입 */
 type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 
 interface OptionItem {
@@ -11,26 +14,14 @@ interface OptionItem {
   name: string;
 }
 
-interface FilteredItemByEmotion {
-  id: number;
-  content: string;
-  emotion: '1' | '2' | '3' | '4' | '5';
-  date: string;
-}
-
 interface ControlMenuProps {
   value: string;
+  optionList: Array<OptionItem>;
   onChange: SetState<string>;
-  optionList: OptionItem[];
 }
 
 interface DiaryListProps {
-  diaryList: Array<{
-    id: number;
-    content: string;
-    emotion: 1 | 2 | 3 | 4 | 5;
-    date: number;
-  }>;
+  diaryList: ProcessedDiaryListType;
 }
 
 const sortOptionList = [
@@ -51,7 +42,7 @@ const filterOptionList = [
 ];
 
 const ControlMenu = React.memo(
-  ({ value, onChange, optionList }: ControlMenuProps) => {
+  ({ value, optionList, onChange }: ControlMenuProps) => {
     return (
       <select
         className="ControlMenu"
@@ -74,15 +65,15 @@ const DiaryList = ({ diaryList = [] }: DiaryListProps) => {
   const [filter, setFilter] = useState('all');
 
   const getProcessedDiaryList = () => {
-    const filterCallback = (item: FilteredItemByEmotion) => {
+    const filterCallback = (item: OriginDiaryDataType) => {
       if (filter === 'good') {
-        return parseInt(item.emotion) <= 3;
+        return Number(item.emotion) <= 3;
       } else {
-        return parseInt(item.emotion) > 3;
+        return Number(item.emotion) > 3;
       }
     };
 
-    const compare = (a: FilteredItemByEmotion, b: FilteredItemByEmotion) => {
+    const compare = (a: OriginDiaryDataType, b: OriginDiaryDataType) => {
       if (sortType === 'latest') {
         return parseInt(b.date) - parseInt(a.date);
       } else {
@@ -95,7 +86,7 @@ const DiaryList = ({ diaryList = [] }: DiaryListProps) => {
     const filteredList =
       filter === 'all'
         ? copyList
-        : copyList.filter((it: FilteredItemByEmotion) => filterCallback(it));
+        : copyList.filter((it: OriginDiaryDataType) => filterCallback(it));
 
     const sortedList = filteredList.sort(compare);
 
@@ -126,7 +117,7 @@ const DiaryList = ({ diaryList = [] }: DiaryListProps) => {
         </div>
       </div>
 
-      {getProcessedDiaryList().map((it: DiaryItemProps) => (
+      {getProcessedDiaryList().map((it: OriginDiaryDataType) => (
         <DiaryItem key={it.id} {...it} />
       ))}
     </div>
